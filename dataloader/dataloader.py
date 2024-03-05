@@ -169,7 +169,7 @@ def ade_and_sci_preprocess(data, dataset):
 
 
 def dataloader(args, ner2idx, rel2idx):
-    path = "data/" + args.data
+    path = args.data
 
     if args.data == "ADE":
         train_raw_data = json_load(path, "train_triples.json")
