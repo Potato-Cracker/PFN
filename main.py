@@ -150,7 +150,7 @@ if __name__ == '__main__':
        
     with open(args.data + "/ner2idx.json", "r") as f:
         ner2idx = json.load(f)
-    with open("data/" + args.data + "/rel2idx.json", "r") as f:
+    with open(args.data + "/rel2idx.json", "r") as f:
         rel2idx = json.load(f)
 
     train_batch, test_batch, dev_batch = dataloader(args, ner2idx, rel2idx)
