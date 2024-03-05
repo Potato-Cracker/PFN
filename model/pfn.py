@@ -250,7 +250,7 @@ class PFN(nn.Module):
             self.tokenizer = AutoTokenizer.from_pretrained("allenai/scibert_scivocab_uncased")
             self.bert = AutoModel.from_pretrained("allenai/scibert_scivocab_uncased")
 
-        self.bert = BERT()
+        self.bert = BERT(vocab_size=1000)
 
 
 
