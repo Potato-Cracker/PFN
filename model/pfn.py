@@ -3,6 +3,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from transformers import AutoTokenizer, AutoModel, AlbertTokenizer, AlbertModel
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+from .helper_bert import BERT
 
 def cumsoftmax(x):
     return torch.cumsum(F.softmax(x,-1),dim=-1)
@@ -249,15 +250,16 @@ class PFN(nn.Module):
             self.tokenizer = AutoTokenizer.from_pretrained("allenai/scibert_scivocab_uncased")
             self.bert = AutoModel.from_pretrained("allenai/scibert_scivocab_uncased")
 
+        self.bert = BERT()
 
 
 
     def forward(self, x, mask):
 
-        x = self.tokenizer(x, return_tensors="pt",
-                                  padding='longest',
-                                  is_split_into_words=True).to(device)
-        x = self.bert(**x)[0]
+        # x = self.tokenizer(x, return_tensors="pt",
+        #                           padding='longest',
+        #                           is_split_into_words=True).to(device)
+        x = self.bert(x)
         x = x.transpose(0, 1)
 
         if self.training:
